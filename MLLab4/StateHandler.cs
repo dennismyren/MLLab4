@@ -56,12 +56,17 @@ namespace MLLab4
             throw new Exception($"State \"{c}\" does not exist");
         }
 
-        public void Learn(char target, int itr)
+        public void Learn(char target)
         {
+            bool anyChange = true;
             this.target = target;
             GetState(target).Value = 100;
-            for (int i = 0; i < itr; i++)
-                states.Where(x => x.Id != target).ToList().ForEach(x => x.CalcValue());
+            while(anyChange)
+            {
+                anyChange = false;
+                states.Where(x => x.Id != target).ToList().ForEach(x => anyChange = x.CalcValue() || anyChange);
+            }
+                
         }
 
         public string GetSequence(char start)

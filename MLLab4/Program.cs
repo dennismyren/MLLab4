@@ -13,7 +13,7 @@ namespace MLLab4
         {
             StateHandler sh = new StateHandler(RetrieveData());
             char end = 'F';
-            sh.Learn(end, 100);
+            sh.Learn(end);
             Console.WriteLine($"This is all the shortest paths to {end}.");
             foreach (var c in sh.lc)
             {

@@ -48,10 +48,13 @@ namespace MLLab4
             }
         }
 
-        public void CalcValue()
+        public bool CalcValue()
         {
             int[] res = actions.Select(x => x.Item1.Value - x.Item2).ToArray();
+            if (Value == res.Max())
+                return false;
             Value = res.Max();
+            return true;
         }
 
         public char NextState()
