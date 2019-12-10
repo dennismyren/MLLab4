@@ -6,13 +6,20 @@ namespace MLLab4
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
             new Program();
         }
 
         public Program()
         {
             StateHandler sh = new StateHandler(RetrieveData());
+            char end = 'F';
+            sh.Learn(end, 100);
+            Console.WriteLine($"This is all the shortest paths to {end}.");
+            foreach (var c in sh.lc)
+            {
+                Console.WriteLine($"Path of {c} : {sh.GetSequence(c)}");
+            }
+            //Console.WriteLine($"Path of {start} : {sh.GetSequence(start)}");
         }
 
         private string[] RetrieveData()

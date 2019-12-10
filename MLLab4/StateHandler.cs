@@ -8,10 +8,13 @@ namespace MLLab4
     public class StateHandler
     {
         State[] states;
+        char target;
+        public char[] lc;
+
         public StateHandler(string[] pathStrings)
         {
             Path[] paths = ConvertStringPaths(pathStrings);
-            char[] lc = getUniqueIds(paths);
+            lc = GetUniqueIds(paths);
             states = new State[lc.Count()];
             for (int i = 0; i < states.Count(); i++)
                 states[i] = new State(lc[i]);
@@ -32,7 +35,7 @@ namespace MLLab4
             return paths;
         }
 
-        private char[] getUniqueIds(Path[] paths)
+        private char[] GetUniqueIds(Path[] paths)
         {
             List<char> lc = new List<char>();
             foreach (var p in paths)
@@ -51,6 +54,26 @@ namespace MLLab4
                     return s;
 
             throw new Exception($"State \"{c}\" does not exist");
+        }
+
+        public void Learn(char target, int itr)
+        {
+            this.target = target;
+            GetState(target).Value = 100;
+            for (int i = 0; i < itr; i++)
+                states.Where(x => x.Id != target).ToList().ForEach(x => x.CalcValue());
+        }
+
+        public string GetSequence(char start)
+        {
+            string st = "" + start;
+            State s = GetState(start);
+            while(s.Id != target)
+            {
+                s = GetState(s.NextState());
+                st += " " + s.Id;
+            }
+            return st;
         }
     }
 }
