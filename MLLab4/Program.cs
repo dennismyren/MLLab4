@@ -12,7 +12,7 @@ namespace MLLab4
 
         public Program()
         {
-            Console.WriteLine(RetrieveData()[0]);
+            StateHandler sh = new StateHandler(RetrieveData());
         }
 
         private string[] RetrieveData()
