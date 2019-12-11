@@ -69,14 +69,17 @@ namespace MLLab4
                 
         }
 
-        public string GetSequence(char start)
+        public string GetSequence(char start, out int dist)
         {
             string st = "" + start;
             State s = GetState(start);
+            dist = 0;
             while(s.Id != target)
             {
-                s = GetState(s.NextState());
+                int nextDist = 0;
+                s = GetState(s.NextState(out nextDist));
                 st += " " + s.Id;
+                dist += nextDist;
             }
             return st;
         }

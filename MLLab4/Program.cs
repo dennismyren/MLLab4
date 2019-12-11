@@ -15,9 +15,10 @@ namespace MLLab4
             char end = 'F';
             sh.Learn(end);
             Console.WriteLine($"This is all the shortest paths to {end}.");
+            int dist = 0;
             foreach (var c in sh.lc)
             {
-                Console.WriteLine($"Path of {c} : {sh.GetSequence(c)}");
+                Console.WriteLine($"Path of {c} : {sh.GetSequence(c, out dist)} with distance: {dist}");
             }
             //Console.WriteLine($"Path of {start} : {sh.GetSequence(start)}");
         }

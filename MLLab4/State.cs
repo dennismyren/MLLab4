@@ -57,10 +57,12 @@ namespace MLLab4
             return true;
         }
 
-        public char NextState()
+        public char NextState(out int dist)
         {
             int maxValue = actions.Max(x => x.Item1.Value - x.Item2);
-            return actions.Where(x => x.Item1.Value-x.Item2 == maxValue).ToArray()[0].Item1.Id;
+            Tuple<State, int> s = actions.Where(x => x.Item1.Value - x.Item2 == maxValue).ToArray()[0];
+            dist = s.Item2;
+            return s.Item1.Id;
         }
         private bool IsRelevant(Path path) => Id == path.from || Id == path.to;
 
